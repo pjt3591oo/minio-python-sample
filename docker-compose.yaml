@@ -1,0 +1,17 @@
+version: '3'
+
+services:  
+  minio:
+    container_name: minio    
+    image: quay.io/minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin        # ACCESS_KEY로 사용
+      MINIO_ROOT_PASSWORD: password # SECRET_KEY로 사용
+    restart: always
+    shm_size: '1gb'  # default는 64MB
+    ports:
+      - "9000:9000"    # minio 서비스 포트
+      - "9001:9001"    # minio 콘솔 포트
+    volumes:
+      - ./data:/data  
